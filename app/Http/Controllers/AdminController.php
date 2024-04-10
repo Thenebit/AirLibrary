@@ -10,4 +10,9 @@ class AdminController extends Controller
     {
         return view('pages.admin.home');
     }
+
+    public function publish()
+    {
+        return view('pages.admin.publish');
+    }
 }

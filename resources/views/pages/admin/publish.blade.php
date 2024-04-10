@@ -16,19 +16,6 @@
           </button>
 
           <ul class="navbar-nav navbar-nav-right">
-           @guest
-                @if (Route::has('login'))
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                    </li>
-                @endif
-
-                @if (Route::has('register'))
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                    </li>
-                @endif
-            @else
             <li class="nav-item nav-profile dropdown">
               <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
                 <div class="nav-profile-img">
@@ -36,23 +23,17 @@
                   <span class="availability-status online"></span>
                 </div>
                 <div class="nav-profile-text">
-                  <p class="mb-1 text-black"> {{ Auth::user()->name }}</p>
+                  <p class="mb-1 text-black">David Greymaax</p>
                 </div>
               </a>
               <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{{ route('logout') }}"
-                          onclick="event.preventDefault();
-                                    document.getElementById('logout-form').submit();">
-                        <i class="mdi mdi-logout me-2 text-primary"></i>{{ __('Logout') }}
-                    </a>
-
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                        @csrf
-                    </form>
+                
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">
+                  <i class="mdi mdi-logout me-2 text-primary"></i> Signout </a>
               </div>
             </li>
-           @guest
+
           </ul>
         </div>
       </nav>
@@ -94,69 +75,43 @@
         <!-- partial -->
         <div class="main-panel">
           <div class="content-wrapper">
-            <div class="page-header">
-              <h3 class="page-title">
-                <span class="page-title-icon bg-gradient-primary text-white me-2">
-                  <i class="mdi mdi-home"></i>
-                </span> Dashboard
-              </h3>
-            </div>
-            <div class="row">
-              <div class="col-md-4 stretch-card grid-margin">
-                <div class="card bg-gradient-danger card-img-holder text-white">
-                  <div class="card-body">
-                    <img src="{{ asset('admin/assets/images/dashboard/circle.svg') }}" class="card-img-absolute" alt="circle-image" />
-                    <h4 class="font-weight-normal mb-3">Total Students <i class="mdi mdi-account-circle mdi-24px float-right"></i>
-                    </h4>
-                    <h2 class="mb-5">15,0000</h2>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-4 stretch-card grid-margin">
-                <div class="card bg-gradient-info card-img-holder text-white">
-                  <div class="card-body">
-                    <img src="{{ asset('admin/assets/images/dashboard/circle.svg') }}" class="card-img-absolute" alt="circle-image" />
-                    <h4 class="font-weight-normal mb-3">Total Books <i class="mdi mdi-book-multiple mdi-24px float-right"></i>
-                    </h4>
-                    <h2 class="mb-5">45,6334</h2>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="row">
-            <div class="col-lg-12 grid-margin stretch-card">
+          <div class="row">
+            <div class="col-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">List of Books</h4>
+                    <h4 class="card-title">{{__('Publish Document') }} </h4>
 
-                    </p>
-                    <table class="table table-striped">
-                      <thead>
-                        <tr>
-                          <th> Title </th>
-                          <th> Author</th>
-                          <th> Category </th>
-                          <th> Upload Date </th>
-                          <th> Actions </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td> No More Excess </td>
-                          <td> Mark Twain </td>
-                          <td> Self Development </td>
-                          <td> 20 May, 2022 </td>
-                          <td> Delete/Read</td>
-                        </tr>
+                    <form class="forms-sample">
 
-                      </tbody>
-                    </table>
+                      <div class="form-group">
+                        <label for="exampleInputName1">{{__('Title') }}</label>
+                        <input type="text" class="form-control" id="exampleInputName1" placeholder="Document Title">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputName1">{{__('Author') }}</label>
+                        <input type="text" class="form-control" id="exampleInputName1" placeholder="Document Author">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputName1">{{__('Category') }}</label>
+                        <input type="text" class="form-control" id="exampleInputName1" placeholder="Document Category">
+                      </div>
+                      <div class="form-group">
+                        <label>{{__('File upload') }}</label>
+                        <input type="file" name="img[]" class="file-upload-default">
+                        <div class="input-group col-xs-12">
+                          <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Document PDF">
+                          <span class="input-group-append">
+                            <button class="file-upload-browse btn btn-gradient-primary" type="button">Upload</button>
+                          </span>
+                        </div>
+                      </div>
+                      <button type="submit" class="btn btn-gradient-primary me-2">{{__('Submit') }}</button>
+
+                    </form>
                   </div>
                 </div>
               </div>
             </div>
-
           </div>
           <!-- content-wrapper ends -->
           <!-- partial:partials/_footer.html -->

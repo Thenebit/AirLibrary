@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,16 +16,19 @@ use App\Http\Controllers\AdminController;
 */
 
 Route::get('/', function () {
-    return view('pages.admin.home');
+    return view('welcome');
 });
+
+// Route::get('/publish', [AdminController::class, 'publish'])->name('publish');
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // Admin index
-//Route::get('/admin', [AdminController::class, 'index'])->name('home')->middleware('multiauth');
+Route::get('/admin', [AdminController::class, 'index'])->name('AdminHome')->middleware('multiauth');
 // Admin store
+Route::get('/publish', [AdminController::class, 'publish'])->name('publish')->middleware('multiauth');
 // Admin delete
 // Admin show
 
