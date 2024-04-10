@@ -16,17 +16,15 @@ class MultiAuthentication
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // return $next($request);
-        if (Auth::check())
-        {
-            $userRole = Auth::user()->role;
+        // if (Auth::check()) {
+        //     $userRole = Auth::user()->role;
 
-            if ($userRole == 1)
-            {
-                return $next($request);
-            }
+        //     if ($userRole == 1) {
+        //         return $next($request);
+        //     }
+        // }
 
-        }
-        return redirect('/student');
+        // return redirect('/student');
+
     }
 }

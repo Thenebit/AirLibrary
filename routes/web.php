@@ -26,9 +26,9 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // Admin index
-Route::get('/admin', [AdminController::class, 'index'])->name('AdminHome')->middleware('multiauth');
+//Route::get('/admin', [AdminController::class, 'index'])->name('AdminHome');
 // Admin store
-Route::get('/publish', [AdminController::class, 'publish'])->name('publish')->middleware('multiauth');
+Route::get('/publish', [AdminController::class, 'publish'])->name('publish');
 // Admin delete
 // Admin show
 

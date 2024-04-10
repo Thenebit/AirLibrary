@@ -23,12 +23,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        return view('pages.admin.home');
     }
 
     public function studex()
     {
         return view('pages.student.home');
     }
-    
+
 }
