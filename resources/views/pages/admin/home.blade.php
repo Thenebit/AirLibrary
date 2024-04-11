@@ -4,8 +4,7 @@
 
 <div class="container-scroller">
 
-      <!-- partial:partials/_navbar.html -->
-      <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+    <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
         <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
           <!-- <a class="navbar-brand brand-logo" href="index.html"><img src="{{ asset('admin/assets/images/logo.svg') }}" alt="logo" /></a> -->
           <!-- <a class="navbar-brand brand-logo-mini" href="index.html"><img src="{{ asset('admin/assets/images/logo-mini.svg') }}" alt="logo" /></a> -->
@@ -55,10 +54,9 @@
            @endguest
           </ul>
         </div>
-      </nav>
-      <!-- partial -->
-      <div class="container-fluid page-body-wrapper">
-        <!-- partial:partials/_sidebar.html -->
+    </nav>
+
+    <div class="container-fluid page-body-wrapper">
         <nav class="sidebar sidebar-offcanvas" id="sidebar">
           <ul class="nav">
             <li class="nav-item nav-profile">
@@ -66,7 +64,7 @@
                 <div class="nav-profile-image">
                   <img src="{{ asset('admin/assets/images/faces/prl.webp') }}" alt="profile">
                   <span class="login-status online"></span>
-                  <!--change to offline or busy as needed-->
+
                 </div>
                 <div class="nav-profile-text d-flex flex-column">
                   <span class="font-weight-bold mb-2">{{ Auth::user()->name }}</span>
@@ -76,7 +74,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{ url('/') }}">
+              <a class="nav-link" href="{{ url('/home') }}">
                 <span class="menu-title">Dashboard</span>
                 <i class="mdi mdi-home menu-icon"></i>
               </a>
@@ -91,85 +89,87 @@
 
           </ul>
         </nav>
-        <!-- partial -->
+
         <div class="main-panel">
-          <div class="content-wrapper">
-            <div class="page-header">
-              <h3 class="page-title">
-                <span class="page-title-icon bg-gradient-primary text-white me-2">
-                  <i class="mdi mdi-home"></i>
-                </span> Dashboard
-              </h3>
-            </div>
-            <div class="row">
-              <div class="col-md-4 stretch-card grid-margin">
-                <div class="card bg-gradient-danger card-img-holder text-white">
-                  <div class="card-body">
-                    <img src="{{ asset('admin/assets/images/dashboard/circle.svg') }}" class="card-img-absolute" alt="circle-image" />
-                    <h4 class="font-weight-normal mb-3">Total Students <i class="mdi mdi-account-circle mdi-24px float-right"></i>
-                    </h4>
-                    <h2 class="mb-5">15,0000</h2>
+            <div class="content-wrapper">
+                <div class="page-header">
+                  <h3 class="page-title">
+                    <span class="page-title-icon bg-gradient-primary text-white me-2">
+                      <i class="mdi mdi-home"></i>
+                    </span> Dashboard
+                  </h3>
+                </div>
+                <div class="row">
+                  <div class="col-md-4 stretch-card grid-margin">
+                    <div class="card bg-gradient-danger card-img-holder text-white">
+                      <div class="card-body">
+                        <img src="{{ asset('admin/assets/images/dashboard/circle.svg') }}" class="card-img-absolute" alt="circle-image" />
+                        <h4 class="font-weight-normal mb-3">Total Students <i class="mdi mdi-account-circle mdi-24px float-right"></i>
+                        </h4>
+                        <h2 class="mb-5">{{ $totalLoggedInUsers }}</h2>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4 stretch-card grid-margin">
+                    <div class="card bg-gradient-info card-img-holder text-white">
+                      <div class="card-body">
+                        <img src="{{ asset('admin/assets/images/dashboard/circle.svg') }}" class="card-img-absolute" alt="circle-image" />
+                        <h4 class="font-weight-normal mb-3">Total Books <i class="mdi mdi-book-multiple mdi-24px float-right"></i>
+                        </h4>
+                        <h2 class="mb-5">{{ $allBooks }}</h2>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="col-md-4 stretch-card grid-margin">
-                <div class="card bg-gradient-info card-img-holder text-white">
-                  <div class="card-body">
-                    <img src="{{ asset('admin/assets/images/dashboard/circle.svg') }}" class="card-img-absolute" alt="circle-image" />
-                    <h4 class="font-weight-normal mb-3">Total Books <i class="mdi mdi-book-multiple mdi-24px float-right"></i>
-                    </h4>
-                    <h2 class="mb-5">45,6334</h2>
-                  </div>
+
+                <div class="row">
+                    <div class="col-lg-12 grid-margin stretch-card">
+                      <div class="card">
+                        <div class="card-body">
+                          <h4 class="card-title">List of Books</h4>
+
+                          </p>
+                          <table class="table table-striped">
+                            <thead>
+                              <tr>
+                                <th> ID </th>
+                                <th> Title </th>
+                                <th> Author</th>
+                                <th> Category </th>
+                                <th> Upload Date </th>
+                                <th> Actions </th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($data as $docs)
+                                    <tr>
+                                      <td>{{ $docs->id }}</td>
+                                      <td> {{ $docs->title }} </td>
+                                      <td> {{ $docs->author }} </td>
+                                      <td> {{ $docs->category }} </td>
+                                      <td> {{ $docs->created_at->format('M jS Y') }}</td>
+                                      <td>
+                                        <a href="{{ url('/delete', $docs->id) }}" class="btn btn-danger">Delete</a>
+                                        <a href="{{ url('/view', $docs->id) }}" class="btn btn-primary">Read</a>
+                                      </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                          </table>
+                        </div>
+                    </div>
                 </div>
-              </div>
+
             </div>
 
-            <div class="row">
-            <div class="col-lg-12 grid-margin stretch-card">
-                <div class="card">
-                  <div class="card-body">
-                    <h4 class="card-title">List of Books</h4>
-
-                    </p>
-                    <table class="table table-striped">
-                      <thead>
-                        <tr>
-                          <th> Title </th>
-                          <th> Author</th>
-                          <th> Category </th>
-                          <th> Upload Date </th>
-                          <th> Actions </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td> No More Excess </td>
-                          <td> Mark Twain </td>
-                          <td> Self Development </td>
-                          <td> 20 May, 2022 </td>
-                          <td> Delete/Read</td>
-                        </tr>
-
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
             </div>
-
-          </div>
-          <!-- content-wrapper ends -->
-          <!-- partial:partials/_footer.html -->
-          <footer class="footer">
+            <footer class="footer">
             <div class="container-fluid d-flex justify-content-between">
               <span class="text-muted d-block text-center text-sm-start d-sm-inline-block">Copyright © AirLibrary 2024</span>
             </div>
           </footer>
-          <!-- partial -->
         </div>
-        <!-- main-panel ends -->
-      </div>
-      <!-- page-body-wrapper ends -->
+    </div>
 </div>
 
 @endsection

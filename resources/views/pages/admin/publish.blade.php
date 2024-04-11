@@ -76,7 +76,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{ url('/') }}">
+              <a class="nav-link" href="{{ url('/home') }}">
                 <span class="menu-title">Dashboard</span>
                 <i class="mdi mdi-home menu-icon"></i>
               </a>
@@ -100,30 +100,52 @@
                   <div class="card-body">
                     <h4 class="card-title">{{__('Publish Document') }} </h4>
 
-                    <form class="forms-sample">
+                    @if(session('success'))
+        		        <div class="alert alert-success mb-1 mt-1">
+            		        {{ session('success') }}
+        		        </div>
+        	        @endif
+                    @if(session('error'))
+        		        <div class="alert alert-error mb-1 mt-1">
+            		        {{ session('error') }}
+        		        </div>
+        	        @endif
 
+
+                    <form class="forms-sample" action="{{ url('/save') }}" method="POST" enctype="multipart/form-data">
+                     @csrf
                       <div class="form-group">
                         <label for="exampleInputName1">{{__('Title') }}</label>
-                        <input type="text" class="form-control" id="exampleInputName1" placeholder="Document Title">
+                        <input type="text" class="form-control" id="exampleInputName1" placeholder="Document Title" name="title">
+                        @error('title')
+                        	<div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                        @enderror
                       </div>
                       <div class="form-group">
                         <label for="exampleInputName1">{{__('Author') }}</label>
-                        <input type="text" class="form-control" id="exampleInputName1" placeholder="Document Author">
+                        <input type="text" class="form-control" id="exampleInputName1" placeholder="Document Author" name="author">
+                        @error('author')
+                        	<div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                        @enderror
                       </div>
                       <div class="form-group">
                         <label for="exampleInputName1">{{__('Category') }}</label>
-                        <input type="text" class="form-control" id="exampleInputName1" placeholder="Document Category">
+                        <input type="text" class="form-control" id="exampleInputName1" placeholder="Document Category" name="category">
+                        @error('category')
+                        	<div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                        @enderror
                       </div>
+
                       <div class="form-group">
                         <label>{{__('File upload') }}</label>
-                        <input type="file" name="img[]" class="file-upload-default">
                         <div class="input-group col-xs-12">
-                          <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Document PDF">
-                          <span class="input-group-append">
-                            <button class="file-upload-browse btn btn-gradient-primary" type="button">Upload</button>
-                          </span>
+                            <input type="file" class="form-control file-upload-info" placeholder="Upload Document PDF" name="file">
+                            @error('file')
+                                <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                            @enderror
                         </div>
                       </div>
+
                       <button type="submit" class="btn btn-gradient-primary me-2">{{__('Submit') }}</button>
 
                     </form>

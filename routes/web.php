@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\StudentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,24 +16,26 @@ use App\Http\Controllers\HomeController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 // Route::get('/publish', [AdminController::class, 'publish'])->name('publish');
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//temp
+Route::get('delete/{id}', [HomeController::class, 'delete'])->name('delete');
+Route::get('/view/{id}', [HomeController::class, 'view'])->name('view.doc');
 
-// Admin index
+// Admin Routes
 //Route::get('/admin', [AdminController::class, 'index'])->name('AdminHome');
-// Admin store
 Route::get('/publish', [AdminController::class, 'publish'])->name('publish');
-// Admin delete
-// Admin show
+Route::post('/save', [AdminController::class, 'save'])->name('save');
+//Route::get('delete', [AdminController::class, 'delete'])->name('delete')->middleware('multiauth');
+//Route::get('/view', [AdminController::class, 'view'])->name('view')->middleware('multiauth');
 
-// Student index
-Route::get('/student', [HomeController::class, 'studex']);
-
-// Student show
+// Student Route
+Route::get('/', [StudentController::class, 'index'])->name('student.home');
+Route::get('/read/{id}', [StudentController::class, 'view'])->name('student.read');
